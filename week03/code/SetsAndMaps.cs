@@ -22,7 +22,22 @@ public static class SetsAndMaps
     public static string[] FindPairs(string[] words)
     {
         // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+        var set = new HashSet<string>(words);
+        var pairs = new HashSet<string>();
+        foreach (string word in words)
+        {
+            char[] charArr = word.ToCharArray();
+            Array.Reverse(charArr);
+            var reverse = new string(charArr);
+            if (set.Contains(reverse) == true && word != reverse)
+            {
+
+                pairs.Add($"{word} & {reverse}");
+                set.Remove(word);
+            }
+        }
+        Console.WriteLine(pairs);
+        return pairs.ToArray();
     }
 
     /// <summary>
@@ -43,6 +58,14 @@ public static class SetsAndMaps
         {
             var fields = line.Split(",");
             // TODO Problem 2 - ADD YOUR CODE HERE
+            if (degrees.ContainsKey(fields[3]) == false)
+            {
+                degrees.Add(fields[3], 1);
+            }
+            else
+            {
+                degrees[fields[3]] += 1;
+            }
         }
 
         return degrees;
@@ -67,6 +90,30 @@ public static class SetsAndMaps
     public static bool IsAnagram(string word1, string word2)
     {
         // TODO Problem 3 - ADD YOUR CODE HERE
+        var dictionary = new Dictionary<int, string>();
+
+        for (int i = 0; i < word1.Length; i++)
+        {
+            dictionary.Add(i, word1[i].ToString().ToLower());
+        }
+
+        for (int i = 0; i < word1.Length; i++)
+        {
+            if (word2.ToLower().Contains(dictionary[i]))
+            {
+                int index = word2.ToLower().IndexOf(dictionary[i]);
+                word2 = word2.Remove(index, 1);
+                dictionary[i] = "null";
+            }
+            else if (word2.ToLower().Contains(dictionary[i]) == false)
+            {
+                return false;
+            }
+
+            if (word2.Trim() == "")
+                return true;
+        }
+        // string newWord = word2;
         return false;
     }
 
