@@ -193,9 +193,9 @@ public static class Recursion
                     WildcardBinary(string.Concat(newPattern), results); 
                 }
             }
-            
-            
         }
+            
+            
 
         // base case pattern does not have anymore asterisks
         // iterate through each character
